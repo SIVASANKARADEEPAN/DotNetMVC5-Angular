@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "TodoList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div ng-app="MyApp">
+    <h4>To Do List</h4>
+    <div ng-controller="TodoController">
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Content</th>
+                    <th>Status</th>
+                    <th>Progress(%)</th>
+                    <th colspan="2">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="hidden" class="form-control" ng-model="task.Id" /></td>
+                    <td><input type="text" class=" form-control" ng-model="task.Content" /></td>
+                    <td><select class="form-control" ng-options="StatusType.Id as StatusType.StatusType for StatusType in StatusTypes" ng-model="task.StatusId" /></td>
+                    <td><input type="text" class=" form-control" ng-model="task.Progress" /></td>
+                    <td><button class="btn btn-primary" ng-click="addTask();">New</button></td>
+                    <td><button class="btn btn-info" ng-click="updateTask(task);">Update</button></td>
+                </tr>
+                <tr ng-repeat="task in todolists">
+                    <td>{{task.Id}}</td>
+                    <td>{{task.Content}}</td>
+                    <td>{{task.Status.StatusType}}</td>
+                    <td>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                 aria-valuenow="{{task.Progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{task.Progress}}%">
+                            </div>
+                        </div>
+                    </td>
+                    <td><button class="btn btn-warning" ng-click="editTask(task);">Edit</button></td>
+                    <td><button class="btn btn-danger" ng-click="deleteTask(task);">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
